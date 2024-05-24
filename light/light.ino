@@ -50,8 +50,8 @@ void setup()
 
   Serial.println("\nconnected and request initial data.");
   // 初期値リクエストコマンド送信
-  client.write("lightL\nstart\n.\n.\n.", 19);
-  //client.write("lightD\nstart\n.\n.\n.", 19);
+  //client.write("lightL\nstart\n.\n.\n.", 19);
+  client.write("lightD\nstart\n.\n.\n.", 19);
   //client.write("lightA\nstart\n.\n.\n.", 19);
   client.stop();
   Serial.println("done.\n\n");
@@ -91,17 +91,11 @@ void loop() {
     param[counter++] = '\n';
 
     client.stop(); // 接続切断
+
     Serial.print(command +" : ");
     sscanf(param, "%d", &level);
-    Serial.printf("%d : ", level);
-
-    // index.htm のスライダは 0-100 に設定しているため
-    // PWM範囲 0-255 に変換し出力する
-    float fval = (float)level;
-    fval /= 100.0;
-    fval *=255.0;
-    level = (int)fval;
     Serial.printf("%d\n", level);
+
     analogWrite(5, level);
   }
 }
