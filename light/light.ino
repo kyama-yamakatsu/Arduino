@@ -1,12 +1,14 @@
 #include <stdio.h>
+#include <string.h>
 #include <ESP8266WiFi.h>
 
-// WiFi router
-const char* my_ssid = "rt500m-d46b42-2";
-const char* my_password = "ef41a05b4cd0f";
-
-// RasPi server
-const byte serverIP[] = { 192,168,1,6 };
+// WiFi router and RasPi server
+// const char* my_ssid = "rt500m-d46b42-2";
+// const char* my_password = "ef41a05b4cd0f";
+// const byte serverIP[] = { 192,168,1,6 };
+const char* my_ssid = "tethering-k";
+const char* my_password = "qweiop123890";
+const byte serverIP[] = { 10,186,34,128 };
 
 WiFiServer server(2000);
 WiFiClient client;
@@ -50,8 +52,8 @@ void setup()
 
   Serial.println("\nconnected and request initial data.");
   // 初期値リクエストコマンド送信
-  //client.write("lightL\nstart\n.\n.\n.", 19);
-  client.write("lightD\nstart\n.\n.\n.", 19);
+  client.write("lightL\nstart\n.\n.\n.", 19);
+  //client.write("lightD\nstart\n.\n.\n.", 19);
   //client.write("lightA\nstart\n.\n.\n.", 19);
   client.stop();
   Serial.println("done.\n\n");
