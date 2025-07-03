@@ -8,7 +8,8 @@
 // const byte serverIP[] = { 192,168,1,6 };
 const char* my_ssid = "tethering-k";
 const char* my_password = "qweiop123890";
-const byte serverIP[] = { 10,186,34,128 };
+// const byte serverIP[] = { 10,186,34,128 };
+const char* server_name = "raspberrypi.local";
 
 WiFiServer server(2000);
 WiFiClient client;
@@ -41,19 +42,20 @@ void setup()
   Serial.println("Server started");
 
   // RasPi server に接続して初期データをリクエスト
-  client.connect(serverIP, 2000);
+  // client.connect(serverIP, 2000);
+  client.connect(server_name, 2000);
+
   Serial.print("\nRasPi Server Connecting ");
 
   while( !client.connected() ) {
-    // client.connect(serverIP, 2000);
     Serial.print(".");
     delay(500);
   }
 
   Serial.println("\nconnected and request initial data.");
   // 初期値リクエストコマンド送信
-  client.write("lightL\nstart\n.\n.\n.", 19);
-  //client.write("lightD\nstart\n.\n.\n.", 19);
+  //client.write("lightL\nstart\n.\n.\n.", 19);
+  client.write("lightD\nstart\n.\n.\n.", 19);
   //client.write("lightA\nstart\n.\n.\n.", 19);
   client.stop();
   Serial.println("done.\n\n");
